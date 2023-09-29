@@ -84,7 +84,7 @@
                             <table class="table align-items-center mb-0">
                                 <thead>
                                 <tr>
-                                    <th class="text-center opacity-7 text-uppercase">STT</th>
+                                    <th class="text-center opacity-7 text-uppercase">ID</th>
                                     <th class="text-center opacity-7 text-uppercase">Hình Ảnh</th>
                                     <th class="text-center opacity-7 text-uppercase">Mã SP</th>
                                     <th class="text-center opacity-7 text-uppercase">Tên SP</th>
