@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ClientController {
     //client
-    @GetMapping("")
+    @GetMapping("/trang-chu")
     public String mainTra() {
 
         return "/client/index";
@@ -15,7 +15,7 @@ public class ClientController {
 
     @GetMapping("/shop")
     public String viewShop() {
-        return "shop";
+        return "/client/shop";
     }
 
    

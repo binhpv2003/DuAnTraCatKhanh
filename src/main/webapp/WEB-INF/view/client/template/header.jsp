@@ -34,7 +34,7 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href="index.html"><img src="images/home/logo.PNG" class="img-fluid" height="80px"
+                        <a href="/trang-chu"><img src="images/home/logo.PNG" class="img-fluid" height="80px"
                                                   alt=""/></a>
                     </div>
                     <div class="btn-group pull-right">
@@ -75,7 +75,7 @@
                     </div>
                     <div class="mainmenu ">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="/" class="active">Trang Chủ</a></li>
+                            <li><a href="/trang-chu" class="active">Trang Chủ</a></li>
                             <li class="dropdown"><a href="/shop">Cửa hàng<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
                                     <li><a href="shop.html">Sản Phẩm</a></li>
