@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -5,10 +8,10 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
     <title>
-        Argon Dashboard 2 by Creative Tim
+        Trang Quản Trị Cát Khánh
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet"/>
@@ -37,27 +40,21 @@
                 <div class="card mb-4">
                     <div class="card-header pb-0 d-flex justify-content-between">
                         <h6>Quản Lý Sản Phẩm</h6>
-                        <button class="btn btn-primary">Thêm Mới</button>
+                        <a class="btn btn-primary" href="/admin/view-add">Thêm Mới</a>
                     </div>
-                    <div class="card-body px-0 pt-0" style="height: 600px">
-                        <div class="form-group row" style="padding: 0 20px">
-                            <div class="col-sm-2 ">
-                                <select class="form-control">
-                                    <option value="" selected="selected">Hành Động</option>
-                                    <option value="lap-xuong-nho">Bỏ Vào Thùng Rác</option>
-                                </select>
 
-                            </div>
-                            <div class="col-sm-2">
-                                <button class="btn btn-primary">Áp Dụng</button>
-                            </div>
+                    <div class="card-body px-0 pt-0" style="height: 600px">
+
+                        <div class="form-group row" style="padding: 0 20px">
+
+
                             <div class="col-sm-2">
                                 <select class="form-control">
                                     <option value="" selected="selected">Chọn danh mục&nbsp;&nbsp;</option>
-                                    <option value="lap-xuong-nho">Lạp Xưởng Nhỏ&nbsp;&nbsp;</option>
-                                    <option value="lap-xuong-tuoi">Lạp Xưởng Tươi&nbsp;&nbsp;</option>
-                                    <option value="qua-tang">Quà Tặng&nbsp;&nbsp;</option>
-                                    <option value="uncategorized">Tất Cả&nbsp;&nbsp;</option>
+                                  <c:forEach items="${listDanhMuc}" var="dm">
+                                      <option value="${dm.ten}">${dm.ten}</option>
+                                  </c:forEach>
+
                                 </select>
                             </div>
 
@@ -66,17 +63,19 @@
                                     <option value="" selected="selected">Lọc theo trạng thái kho&nbsp;&nbsp;</option>
                                     <option value="lap-xuong-nho">Còn Hàng&nbsp;&nbsp;</option>
                                     <option value="lap-xuong-tuoi">Hết Hàng&nbsp;&nbsp;</option>
-                                    <option value="uncategorized">Tất Cả&nbsp;&nbsp;</option>
 
                                 </select>
                             </div>
-                            <div class="col-sm-1">
+                            <div class="col-sm-2">
                                 <button class="btn btn-primary">Lọc</button>
                             </div>
-                            <div class="col-sm-3" style="">
+                            <div class="col-sm-4" style="">
                                 <form action="">
                                     <input type="text" placeholder="Nhập tên sản phẩm" class="form-control">
                                 </form>
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-primary">Tìm Kiếm</button>
                             </div>
                         </div>
 
@@ -84,65 +83,87 @@
                             <table class="table align-items-center mb-0">
                                 <thead>
                                 <tr>
-                                    <th class="text-center opacity-7 text-uppercase">ID</th>
+                                    <th class="text-center opacity-7 text-uppercase">#</th>
                                     <th class="text-center opacity-7 text-uppercase">Hình Ảnh</th>
                                     <th class="text-center opacity-7 text-uppercase">Mã SP</th>
                                     <th class="text-center opacity-7 text-uppercase">Tên SP</th>
-                                    <th class="text-center opacity-7 text-uppercase">Kho</th>
-                                    <th class="text-center opacity-7 text-uppercase">Giá</th>
+                                    <th class="text-center opacity-7 text-uppercase">Số Lượng</th>
+                                    <th class="text-center opacity-7 text-uppercase">Giá Nhập</th>
+                                    <th class="text-center opacity-7 text-uppercase">Giá bán</th>
                                     <th class="text-center opacity-7 text-uppercase">Danh Mục</th>
                                     <th class="text-center opacity-7 text-uppercase">NSX</th>
+                                    <th class="text-center opacity-7 text-uppercase">Trạng Thái</th>
                                     <th class="text-center opacity-7 text-uppercase">Hành Động</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
-                                <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">
-                                        <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3"
-                                             alt="user1">
-                                    </td>
-                                    <td class="text-center">SP02</td>
-                                    <td class="text-center">Trà Xanh</td>
-                                    <td class="text-center text-success text-bold">Còn Hàng</td>
-                                    <td class="text-center">
-                                        <span class="text-decoration-line-through">200.000VNĐ</span> <br>
-                                        <span>150.000VNĐ</span>
-                                    </td>
-                                    <td class="text-center">Trà</td>
-                                    <td class="text-center">Trung Quốc</td>
-                                    <td class="text-center">
-                                        <a href="" class="btn btn-success">Detail</a>
-                                        <a href="" class="btn btn-warning">Update</a>
-                                        <a href="" class="btn btn-danger">Remove</a>
-                                    </td>
-                                </tr>
+                                <c:forEach items="${listSanPham}" var="sp" varStatus="loop">
+                                    <tr>
+                                        <td class="text-center">${sp.id}</td>
+                                        <td class="text-center">
+                                            <img src="${sp.hinhAnh}" class="avatar me-3"
+                                                 alt="user1">
+                                        </td>
+                                        <td class="text-center">${sp.maSp}</td>
+                                        <td class="text-center">${sp.tenSp}</td>
+                                        <td class="text-center  ${sp.soLuong >0?"text-success":"text-danger"} text-bold">${sp.soLuong >0?sp.soLuong:"Hết Hàng"}</td>
+                                        <td class="text-center"><fmt:formatNumber value="${sp.giaNhap}" type="number" pattern="###,### VNĐ" /></td>
+                                        <td class="text-center"><fmt:formatNumber value="${sp.giaBan}" type="number" pattern="###,### VNĐ" /></td>
+                                        <td class="text-center">${sp.dm.ten}</td>
+                                        <td class="text-center">${sp.nsx.ten}</td>
+                                        <td class="text-center">${sp.trangThai==true?"Ngừng Hoạt Động":"Hoạt Động"}</td>
+                                        <td class="text-center">
+                                            <button data-bs-toggle="modal" data-bs-target="#${sp.maSp}"
+                                                    class="btn btn-success">Detail
+                                            </button>
+                                            <a href="/admin/view-update/${sp.id}" class="btn btn-warning">Update</a>
+                                            <a href="/admin/remove/${sp.id}" class="btn btn-danger">Remove</a>
 
-                                <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">
-                                        <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3"
-                                             alt="user1">
-                                    </td>
-                                    <td class="text-center">SP02</td>
-                                    <td class="text-center">Trà Xanh</td>
-                                    <td class="text-center text-success text-bold">Còn Hàng</td>
-                                    <td class="text-center">
-                                        <span class="text-decoration-line-through">200.000VNĐ</span> <br>
-                                        <span>150.000VNĐ</span>
-                                    </td>
-                                    <td class="text-center">Trà</td>
-                                    <td class="text-center">Trung Quốc</td>
-                                    <td class="text-center">
-                                        <a href="" class="btn btn-success">Detail</a>
-                                        <a href="" class="btn btn-warning">Update</a>
-                                        <a href="" class="btn btn-danger">Remove</a>
-                                    </td>
-                                </tr>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade"  id="${sp.maSp}" tabindex="1"
+                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog " >
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title"
+                                                                id="exampleModalLabel">${sp.tenSp}</h5>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body row">
+                                                            <div class="col-md-6">
+                                                                <img src="${sp.hinhAnh}" class="img-fluid">
+                                                            </div>
+                                                            <div class="col-md-6 " style="text-align: left">
+                                                                <h5>${sp.tenSp}</h5>
+                                                                Mã SP: <p>${sp.maSp}</p>
+                                                                Số Lượng: <p class=" text-success text-bold">${sp.soLuong}</p>
+                                                                Giá Nhập: <p >${sp.giaNhap}VNĐ</p>
+                                                                Giá Bán:<p >${sp.giaBan}VNĐ</p>
+                                                                Danh Mục: <p >${sp.dm.ten}</p>
+                                                                Nhà Sản Xuất: <p >${sp.nsx.ten}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Close
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+
                                 </tbody>
                             </table>
                         </div>
+                        <c:forEach var="i" begin="0" end="${listSanPham.totalPages - 1}">
+                            <li><a href="?page=${i}">${i + 1}</a></li>
+                        </c:forEach>
                     </div>
                 </div>
             </div>
@@ -169,76 +190,10 @@
         </footer>
     </div>
 </main>
-<div class="fixed-plugin">
-    <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
-        <i class="fa fa-cog py-2"> </i>
-    </a>
-    <div class="card shadow-lg">
-        <div class="card-header pb-0 pt-3 ">
-            <div class="float-start">
-                <h5 class="mt-3 mb-0">Cài Đặt Cát Khánh</h5>
-                <p>Xem các tùy chọn bảng điều khiển của chúng tôi</p>
-            </div>
-            <div class="float-end mt-4">
-                <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
-                    <i class="fa fa-close"></i>
-                </button>
-            </div>
-            <!-- End Toggle Button -->
-        </div>
-        <hr class="horizontal dark my-1">
-        <div class="card-body pt-sm-3 pt-0 overflow-auto">
-            <!-- Sidebar Backgrounds -->
-            <div>
-                <h6 class="mb-0">Màu Sidebar</h6>
-            </div>
-            <a href="javascript:void(0)" class="switch-trigger background-color">
-                <div class="badge-colors my-2 text-start">
-                    <span class="badge filter bg-gradient-primary active" data-color="primary"
-                          onclick="sidebarColor(this)"></span>
-                    <span class="badge filter bg-gradient-dark" data-color="dark" onclick="sidebarColor(this)"></span>
-                    <span class="badge filter bg-gradient-info" data-color="info" onclick="sidebarColor(this)"></span>
-                    <span class="badge filter bg-gradient-success" data-color="success"
-                          onclick="sidebarColor(this)"></span>
-                    <span class="badge filter bg-gradient-warning" data-color="warning"
-                          onclick="sidebarColor(this)"></span>
-                    <span class="badge filter bg-gradient-danger" data-color="danger"
-                          onclick="sidebarColor(this)"></span>
-                </div>
-            </a>
-            <!-- Sidenav Type -->
-            <div class="mt-3">
-                <h6 class="mb-0">Sidenav Type</h6>
-                <p class="text-sm">Chọn giữa 2 loại sidenav khác nhau.</p>
-            </div>
-            <div class="d-flex">
-                <button class="btn bg-gradient-primary w-100 px-3 mb-2 active me-2" data-class="bg-white"
-                        onclick="sidebarType(this)">White
-                </button>
-                <button class="btn bg-gradient-primary w-100 px-3 mb-2" data-class="bg-default"
-                        onclick="sidebarType(this)">Dark
-                </button>
-            </div>
-            <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
-            <!-- Navbar Fixed -->
-            <div class="d-flex my-3">
-                <h6 class="mb-0">Navbar Fixed</h6>
-                <div class="form-check form-switch ps-0 ms-auto my-auto">
-                    <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed"
-                           onclick="navbarFixed(this)">
-                </div>
-            </div>
-            <hr class="horizontal dark my-sm-4">
-            <div class="mt-2 mb-5 d-flex">
-                <h6 class="mb-0">Light / Dark</h6>
-                <div class="form-check form-switch ps-0 ms-auto my-auto">
-                    <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version"
-                           onclick="darkMode(this)">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+
+<jsp:include page="template/tienich.jsp"/>
+
 <!--   Core JS Files   -->
 <script src="../assets/js/core/popper.min.js"></script>
 <script src="../assets/js/core/bootstrap.min.js"></script>
