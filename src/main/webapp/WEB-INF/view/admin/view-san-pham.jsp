@@ -161,9 +161,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <c:forEach var="i" begin="0" end="${listSanPham.totalPages - 1}">
-                            <li><a href="?page=${i}">${i + 1}</a></li>
-                        </c:forEach>
+
                     </div>
                 </div>
             </div>

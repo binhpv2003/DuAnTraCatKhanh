@@ -6,6 +6,7 @@ import com.example.duanbantra.entity.SanPham;
 import com.example.duanbantra.service.DanhMucService;
 import com.example.duanbantra.service.NSXService;
 import com.example.duanbantra.service.SanPhamService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -107,6 +108,33 @@ public class adminController {
     @GetMapping("/san-pham")
     public Page<SanPham> getSanPham(@RequestParam(defaultValue ="0") int page,@RequestParam(defaultValue = "10") int size){
         return  serviceSanPham.findAllSanPham(page,size);
+    }
+
+    //Danh Mục
+
+    @GetMapping("/danh-muc")
+    public String viewDanhMuc(Model model){
+        model.addAttribute("dm1",new DanhMuc());
+        danhMucList = danhMucService.getAll();
+        model.addAttribute("listDanhMuc", danhMucList);
+        return "/admin/viewDanhMuc";
+    }
+
+    @PostMapping("/add-danh-muc")
+    public String addDanhMuc(@Valid @ModelAttribute("dm1")DanhMuc dm1, BindingResult result, Model model){
+        if(result.hasErrors()){
+            danhMucList = danhMucService.getAll();
+            model.addAttribute("listDanhMuc", danhMucList);
+            return "/admin/viewDanhMuc";
+        }
+        danhMucService.add(dm1);
+        return "redirect:/admin/danh-muc";
+    }
+
+    @GetMapping("/remove-danhmuc/{id}")
+    public String removeDanhMuc(@PathVariable("id")Integer id){
+        danhMucService.remove(id);
+        return "redirect:/admin/danh-muc";
     }
 
 }

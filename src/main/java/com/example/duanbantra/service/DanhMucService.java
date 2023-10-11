@@ -6,4 +6,10 @@ import java.util.List;
 
 public interface DanhMucService {
     List<DanhMuc> getAll();
+
+    void add(DanhMuc dm);
+
+    void update(Integer id);
+
+    void remove(Integer id);
 }
