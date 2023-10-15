@@ -43,21 +43,21 @@
                         <a class="btn btn-primary" href="/admin/view-add">Quay Lại</a>
                     </div>
 
-                    <div class="card-body px-0 pt-0 " >
+                    <div class="card-body px-0 pt-0 ">
 
 
-                        <form:form class="row form-group d-flex justify-content-center p-3" action="/admin/add-danh-muc"
-                                   method="post" modelAttribute="dm1">
-                            <form:label path="" style="font-size:15px">ID Danh Mục:</form:label>
+                        <form:form class="row form-group d-flex justify-content-center p-3" action="/admin/add-nsx"
+                                   method="post" modelAttribute="sx1">
+                            <form:label path="" style="font-size:15px">ID Nhà SX:</form:label>
                             <form:input path="id" class="form-control" readonly="true"/>
 
 
-                            <form:label path="" style="font-size:15px">Mã Danh Mục:</form:label>
+                            <form:label path="" style="font-size:15px">Mã Nhà SX:</form:label>
                             <form:input path="ma" class="form-control"/>
                             <form:errors path="ma" class="text-danger"/>
 
 
-                            <form:label path="" style="font-size:15px">Tên Danh Mục:</form:label>
+                            <form:label path="" style="font-size:15px">Tên Nhà SX:</form:label>
                             <form:input path="ten" class="form-control"/>
                             <form:errors path="ten" class="text-danger"/>
                             <form:button class="btn btn-primary mt-5" type="submit">Thực Hiện</form:button>
@@ -69,21 +69,21 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center opacity-7 text-uppercase">ID</th>
-                                    <th class="text-center opacity-7 text-uppercase">Mã Danh Mục</th>
-                                    <th class="text-center opacity-7 text-uppercase">Tên Danh Mục</th>
+                                    <th class="text-center opacity-7 text-uppercase">Mã Nhà SX</th>
+                                    <th class="text-center opacity-7 text-uppercase">Tên Nhà SX</th>
                                     <th class="text-center opacity-7 text-uppercase">Hành Động</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
-                                <c:forEach items="${listDanhMuc}" var="dm" varStatus="loop">
+                                <c:forEach items="${listNSX}" var="dm" varStatus="loop">
                                     <tr>
                                         <td class="text-center">${dm.id}</td>
                                         <td class="text-center">${dm.ma}</td>
                                         <td class="text-center">${dm.ten}</td>
                                         <td class="text-center">
-                                            <a href="/admin/detail-danhmuc/${dm.id}" class="btn btn-success">Detail</a>
-                                            <a href="/admin/remove-danhmuc/${dm.id}" class="btn btn-danger">Remove</a>
+                                            <a href="/admin/detail-nsx/${dm.id}" class="btn btn-success">Detail</a>
+                                            <a href="/admin/remove-nsx/${dm.id}" class="btn btn-danger">Remove</a>
                                         </td>
                                     </tr>
                                 </c:forEach>

@@ -40,24 +40,24 @@
                 <div class="card mb-4">
                     <div class="card-header pb-0 d-flex justify-content-between">
                         <h6>Quản Lý Danh Mục</h6>
-                        <a class="btn btn-primary" href="/admin/view-add">Quay Lại</a>
+                        <a class="btn btn-primary" href="/admin/nhan-vien/view-add">Quay Lại</a>
                     </div>
 
-                    <div class="card-body px-0 pt-0 " >
+                    <div class="card-body px-0 pt-0 ">
 
 
-                        <form:form class="row form-group d-flex justify-content-center p-3" action="/admin/add-danh-muc"
-                                   method="post" modelAttribute="dm1">
-                            <form:label path="" style="font-size:15px">ID Danh Mục:</form:label>
+                        <form:form class="row form-group d-flex justify-content-center p-3" action="/admin/chuc-vu/add"
+                                   method="post" modelAttribute="cv1">
+                            <form:label path="" style="font-size:15px">ID Chức vụ:</form:label>
                             <form:input path="id" class="form-control" readonly="true"/>
 
 
-                            <form:label path="" style="font-size:15px">Mã Danh Mục:</form:label>
+                            <form:label path="" style="font-size:15px">Mã Chức vụ:</form:label>
                             <form:input path="ma" class="form-control"/>
                             <form:errors path="ma" class="text-danger"/>
 
 
-                            <form:label path="" style="font-size:15px">Tên Danh Mục:</form:label>
+                            <form:label path="" style="font-size:15px">Tên Chức vụ:</form:label>
                             <form:input path="ten" class="form-control"/>
                             <form:errors path="ten" class="text-danger"/>
                             <form:button class="btn btn-primary mt-5" type="submit">Thực Hiện</form:button>
@@ -69,21 +69,21 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center opacity-7 text-uppercase">ID</th>
-                                    <th class="text-center opacity-7 text-uppercase">Mã Danh Mục</th>
-                                    <th class="text-center opacity-7 text-uppercase">Tên Danh Mục</th>
+                                    <th class="text-center opacity-7 text-uppercase">Mã Chức vụ</th>
+                                    <th class="text-center opacity-7 text-uppercase">Tên Chức vụ</th>
                                     <th class="text-center opacity-7 text-uppercase">Hành Động</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
-                                <c:forEach items="${listDanhMuc}" var="dm" varStatus="loop">
+                                <c:forEach items="${listChucVu}" var="cv" varStatus="loop">
                                     <tr>
-                                        <td class="text-center">${dm.id}</td>
-                                        <td class="text-center">${dm.ma}</td>
-                                        <td class="text-center">${dm.ten}</td>
+                                        <td class="text-center">${cv.id}</td>
+                                        <td class="text-center">${cv.ma}</td>
+                                        <td class="text-center">${cv.ten}</td>
                                         <td class="text-center">
-                                            <a href="/admin/detail-danhmuc/${dm.id}" class="btn btn-success">Detail</a>
-                                            <a href="/admin/remove-danhmuc/${dm.id}" class="btn btn-danger">Remove</a>
+                                            <a href="/admin/detail-nsx/${cv.id}" class="btn btn-success">Detail</a>
+                                            <a href="/admin/remove-nsx/${cv.id}" class="btn btn-danger">Remove</a>
                                         </td>
                                     </tr>
                                 </c:forEach>

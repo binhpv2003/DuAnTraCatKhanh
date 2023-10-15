@@ -40,8 +40,8 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0 d-flex justify-content-between">
-                        <h6>Quản Lý Sản Phẩm</h6>
-                        <a class="btn btn-primary" href="/admin/view-add">Thêm Mới</a>
+                        <h6>Quản Lý Khách Hàng</h6>
+                        <a class="btn btn-primary" href="/admin/khach-hang/view-add">Thêm Mới</a>
                     </div>
 
                     <div class="card-body px-0 pt-0">
@@ -85,76 +85,38 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center opacity-7 text-uppercase">#</th>
-                                    <th class="text-center opacity-7 text-uppercase">Hình Ảnh</th>
-                                    <th class="text-center opacity-7 text-uppercase">Mã SP</th>
-                                    <th class="text-center opacity-7 text-uppercase">Tên SP</th>
-                                    <th class="text-center opacity-7 text-uppercase">Số Lượng</th>
-                                    <th class="text-center opacity-7 text-uppercase">Giá Nhập</th>
-                                    <th class="text-center opacity-7 text-uppercase">Giá bán</th>
-                                    <th class="text-center opacity-7 text-uppercase">Danh Mục</th>
-                                    <th class="text-center opacity-7 text-uppercase">NSX</th>
+                                    <th class="text-center opacity-7 text-uppercase">Mã</th>
+                                    <th class="text-center opacity-7 text-uppercase">Họ Và Tên</th>
+                                    <th class="text-center opacity-7 text-uppercase">Ngày Sinh</th>
+                                    <th class="text-center opacity-7 text-uppercase">SĐT</th>
+                                    <th class="text-center opacity-7 text-uppercase">Địa Chỉ</th>
+                                    <th class="text-center opacity-7 text-uppercase">Thành Phố</th>
+                                    <th class="text-center opacity-7 text-uppercase">Quốc Gia</th>
                                     <th class="text-center opacity-7 text-uppercase">Trạng Thái</th>
                                     <th class="text-center opacity-7 text-uppercase">Hành Động</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
-                                <c:forEach items="${listSanPham}" var="sp" varStatus="loop">
+                                <c:forEach items="${listKhachHang}" var="sp" varStatus="loop">
                                     <tr>
-                                        <td class="text-center">${sp.id}</td>
-                                        <td class="text-center">
-                                            <img src="${sp.hinhAnh}" class="avatar me-3"
-                                                 alt="user1">
-                                        </td>
-                                        <td class="text-center">${sp.maSp}</td>
-                                        <td class="text-center">${sp.tenSp}</td>
-                                        <td class="text-center  ${sp.soLuong >0?"text-success":"text-danger"} text-bold">${sp.soLuong >0?sp.soLuong:"Hết Hàng"}</td>
-                                        <td class="text-center"><fmt:formatNumber value="${sp.giaNhap}" type="number" pattern="###,### VNĐ" /></td>
-                                        <td class="text-center"><fmt:formatNumber value="${sp.giaBan}" type="number" pattern="###,### VNĐ" /></td>
-                                        <td class="text-center">${sp.dm.ten}</td>
-                                        <td class="text-center">${sp.nsx.ten}</td>
+                                        <td class="text-center">${loop.index}</td>
+                                        <td class="text-center">${sp.ma}</td>
+                                        <td class="text-center">${sp.ho} ${sp.tenDem} ${sp.ten}</td>
+                                        <td class="text-center">${sp.ngaySinh}</td>
+                                        <td class="text-center">${sp.sdt}</td>
+                                        <td class="text-center">${sp.diaChi}</td>
+                                        <td class="text-center">${sp.thanhPho}</td>
+                                        <td class="text-center">${sp.quocGia}</td>
                                         <td class="text-center">${sp.trangThai==true?"Ngừng Hoạt Động":"Hoạt Động"}</td>
                                         <td class="text-center">
-                                            <button data-bs-toggle="modal" data-bs-target="#${sp.maSp}"
-                                                    class="btn btn-success">Detail
-                                            </button>
-                                            <a href="/admin/view-update/${sp.id}" class="btn btn-warning">Update</a>
-                                            <a href="/admin/remove/${sp.id}" class="btn btn-danger">Remove</a>
-
-
-                                            <!-- Modal -->
-                                            <div class="modal fade"  id="${sp.maSp}" tabindex="1"
-                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog " >
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title"
-                                                                id="exampleModalLabel">${sp.tenSp}</h5>
-                                                            <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body row">
-                                                            <div class="col-md-6">
-                                                                <img src="${sp.hinhAnh}" class="img-fluid">
-                                                            </div>
-                                                            <div class="col-md-6 " style="text-align: left">
-                                                                <h5>${sp.tenSp}</h5>
-                                                                Mã SP: <p>${sp.maSp}</p>
-                                                                Số Lượng: <p class=" text-success text-bold">${sp.soLuong}</p>
-                                                                Giá Nhập: <p >${sp.giaNhap}VNĐ</p>
-                                                                Giá Bán:<p >${sp.giaBan}VNĐ</p>
-                                                                Danh Mục: <p >${sp.dm.ten}</p>
-                                                                Nhà Sản Xuất: <p >${sp.nsx.ten}</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">Close
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <a href="/admin/khach-hang/view-update/${sp.id}" class="btn btn-warning">Update</a>
+                                            <c:if test="${sp.trangThai==false}">
+                                                <a href="/admin/khach-hang/remove/${sp.id}" class="btn btn-danger">Remove</a>
+                                            </c:if>
+                                            <c:if test="${sp.trangThai==true}">
+                                                <a href="/admin/khach-hang/remove/${sp.id}" class="btn btn-primary">Khôi Phục</a>
+                                            </c:if>
                                         </td>
                                     </tr>
                                 </c:forEach>

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SanPhamServiceImpl implements SanPhamService {
@@ -41,9 +42,8 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
-    public Page<SanPham> findAllSanPham(int page,int size){
-        Pageable pageable = PageRequest.of(page,size);
-
+    public Page<SanPham> findAllSanPham(int p, int size){
+        Pageable pageable = PageRequest.of(p, size);
         return repository.findAll(pageable);
     }
 }

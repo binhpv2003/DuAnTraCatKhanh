@@ -1,4 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
     <div class="container-fluid py-1 px-3">
 
@@ -11,9 +16,19 @@
             </div>
             <ul class="navbar-nav  justify-content-end">
                 <li class="nav-item d-flex align-items-center">
-                    <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
-                        <i class="fa fa-user me-sm-1"></i>
-                        <span class="d-sm-inline d-none">Đăng Nhập</span>
+                    <a href="#" class="nav-link text-white font-weight-bold px-0">
+
+                      <c:if test="${checkLogin==1}">
+                          <i class="fa fa-user me-sm-1"></i>
+                          <div class="dropdown">
+                              <a  href="#" class="nav-link text-white font-weight-bold px-0"  role="button" id="dropdownMenuLink" data-toggle="dropdown"> <span class="d-sm-inline d-none">${Id}</span></a>
+
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                  <a class="dropdown-item" href="/thong-tin-tai-khoan">Thông tin tài khoản</a>
+                                  <a class="dropdown-item" href="/admin/logout">Đăng xuất</a>
+                              </div>
+                          </div>
+                      </c:if>
                     </a>
                 </li>
                 <li class="nav-item d-xl-none ps-3 d-flex align-items-center">

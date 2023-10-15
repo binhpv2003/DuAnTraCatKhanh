@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -144,13 +146,13 @@
 
 
                     <div class="price-range"><!--price-range-->
-                        <h2>Lọc Theo Giá</h2>
-                        <div class="well text-center">
-                            <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600"
-                                   data-slider-step="5" data-slider-value="[250,450]" id="sl2"><br/>
-                            <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
-                        </div>
-                    </div><!--/price-range-->
+                    <h2>Lọc Theo Giá</h2>
+                    <div class="well text-center">
+                        <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600"
+                               data-slider-step="5" data-slider-value="[250,450]" id="sl2"><br/>
+                        <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
+                    </div>
+                </div><!--/price-range-->
                 </div>
             </div>
 
@@ -158,183 +160,36 @@
                 <div class="features_items"><!--features_items-->
 
                     <h2 class="title text-center">Sản Phẩm Nổi Bật</h2>
-                    <div class="col-sm-4">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <img src="images/home/product1.webp" alt=""/>
-                                    <h2>200.000 VNĐ</h2>
-                                    <p>Trà San Tuyết</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i
-                                            class="fa fa-shopping-cart"></i>Thêm Vào Giỏ Hàng</a>
-                                </div>
-                                <div class="product-overlay">
-                                    <div class="overlay-content">
-                                        <h2>200.000 VNĐ</h2>
-                                        <p>Trà San Tuyết</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i
-                                                class="fa fa-shopping-cart"></i>Thêm Vào Giỏ Hàng</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="choose">
-                                <ul class="nav nav-pills nav-justified">
-                                    <li><a href="#"><i class="fa fa-plus-square"></i> Yêu
-                                        Thích</a></li>
-                                    <li><a href="#"> <i
-                                            class="fa-solid fa-eye"></i>Xem Chi Tiết</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <img src="images/home/product1.webp" alt=""/>
-                                    <h2>200.000 VNĐ</h2>
-                                    <p>Trà San Tuyết</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i
-                                            class="fa fa-shopping-cart"></i>Thêm Vào Giỏ Hàng</a>
-                                </div>
-                                <div class="product-overlay">
-                                    <div class="overlay-content">
-                                        <h2>200.000 VNĐ</h2>
-                                        <p>Trà San Tuyết</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i
-                                                class="fa fa-shopping-cart"></i>Thêm Vào Giỏ Hàng</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="choose">
-                                <ul class="nav nav-pills nav-justified">
-                                    <li><a href="#"><i class="fa fa-plus-square"></i> Yêu
-                                        Thích</a></li>
-                                    <li><a href="#"> <i
-                                            class="fa-solid fa-eye"></i>Xem Chi Tiết</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <img src="images/home/product1.webp" alt=""/>
-                                    <h2>200.000 VNĐ</h2>
-                                    <p>Trà San Tuyết</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i
-                                            class="fa fa-shopping-cart"></i>Thêm Vào Giỏ Hàng</a>
-                                </div>
-                                <div class="product-overlay">
-                                    <div class="overlay-content">
-                                        <h2>200.000 VNĐ</h2>
-                                        <p>Trà San Tuyết</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i
-                                                class="fa fa-shopping-cart"></i>Thêm Vào Giỏ Hàng</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="choose">
-                                <ul class="nav nav-pills nav-justified">
-                                    <li><a href="#"><i class="fa fa-plus-square"></i> Yêu
-                                        Thích</a></li>
-                                    <li><a href="#"> <i
-                                            class="fa-solid fa-eye"></i>Xem Chi Tiết</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <img src="images/home/product1.webp" alt=""/>
-                                    <h2>200.000 VNĐ</h2>
-                                    <p>Trà San Tuyết</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i
-                                            class="fa fa-shopping-cart"></i>Thêm Vào Giỏ Hàng</a>
-                                </div>
-                                <div class="product-overlay">
-                                    <div class="overlay-content">
-                                        <h2>200.000 VNĐ</h2>
-                                        <p>Trà San Tuyết</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i
-                                                class="fa fa-shopping-cart"></i>Thêm Vào Giỏ Hàng</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="choose">
-                                <ul class="nav nav-pills nav-justified">
-                                    <li><a href="#"><i class="fa fa-plus-square"></i> Yêu
-                                        Thích</a></li>
-                                    <li><a href="#"> <i
-                                            class="fa-solid fa-eye"></i>Xem Chi Tiết</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                   <c:forEach items="${listSanPham}" var="sp">
+                       <div class="col-sm-4">
+                           <div class="product-image-wrapper">
+                               <div class="single-products">
+                                   <div class="productinfo text-center">
+                                       <img src="${sp.hinhAnh}" alt=""/>
+                                       <h2><fmt:formatNumber value="${sp.giaBan}" type="number" pattern="###,### VNĐ" /></h2>
+                                       <p>${sp.tenSp}</p>
+                                       <a href="#" class="btn btn-default add-to-cart"><i
+                                               class="fa fa-shopping-cart"></i>Thêm Vào Giỏ Hàng</a>
+                                   </div>
+                                   <div class="product-overlay">
+                                       <div class="overlay-content">
+                                           <h2><fmt:formatNumber value="${sp.giaBan}" type="number" pattern="###,### VNĐ" /></h2>
+                                           <p>${sp.tenSp}</p>
+                                           <a href="/add/${sp.id}" class="btn btn-default add-to-cart"><i
+                                                   class="fa fa-shopping-cart"></i>Thêm Vào Giỏ Hàng</a>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="choose">
+                                   <ul class="nav nav-pills nav-justified">
 
-                    <div class="col-sm-4">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <img src="images/home/product1.webp" alt=""/>
-                                    <h2>200.000 VNĐ</h2>
-                                    <p>Trà San Tuyết</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i
-                                            class="fa fa-shopping-cart"></i>Thêm Vào Giỏ Hàng</a>
-                                </div>
-                                <div class="product-overlay">
-                                    <div class="overlay-content">
-                                        <h2>200.000 VNĐ</h2>
-                                        <p>Trà San Tuyết</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i
-                                                class="fa fa-shopping-cart"></i>Thêm Vào Giỏ Hàng</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="choose">
-                                <ul class="nav nav-pills nav-justified">
-                                    <li><a href="#"><i class="fa fa-plus-square"></i> Yêu
-                                        Thích</a></li>
-                                    <li><a href="#"> <i
-                                            class="fa-solid fa-eye"></i>Xem Chi Tiết</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <img src="images/home/product1.webp" alt=""/>
-                                    <h2>200.000 VNĐ</h2>
-                                    <p>Trà San Tuyết</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i
-                                            class="fa fa-shopping-cart"></i>Thêm Vào Giỏ Hàng</a>
-                                </div>
-                                <div class="product-overlay">
-                                    <div class="overlay-content">
-                                        <h2>200.000 VNĐ</h2>
-                                        <p>Trà San Tuyết</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i
-                                                class="fa fa-shopping-cart"></i>Thêm Vào Giỏ Hàng</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="choose">
-                                <ul class="nav nav-pills nav-justified">
-                                    <li><a href="#"><i class="fa fa-plus-square"></i> Yêu
-                                        Thích</a></li>
-                                    <li><a href="#"> <i
-                                            class="fa-solid fa-eye"></i>Xem Chi Tiết</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-
+                                       <li><a href="#"> <i
+                                               class="fa-solid fa-eye"></i>Xem Chi Tiết</a></li>
+                                   </ul>
+                               </div>
+                           </div>
+                       </div>
+                   </c:forEach>
                 </div><!--features_items-->
 
 

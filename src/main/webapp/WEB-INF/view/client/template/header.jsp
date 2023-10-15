@@ -1,9 +1,14 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
       integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
       crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v18.0"
         nonce="DbvLU1u1"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <header id="header"><!--header-->
     <div class="header_top"><!--header_top-->
         <div class="container">
@@ -50,9 +55,28 @@
                 <div class="col-sm-4">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                            <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+
+                            <c:if test="${checkLogin==true}">
+                                <li>
+                                    <div class="dropdown">
+                                        <a href="#" class="nav-link text-white font-weight-bold px-0" role="button"
+                                           id="dropdownMenuLink" data-toggle="dropdown"> <span
+                                                class="d-sm-inline d-none"><i
+                                                class="fa fa-user"></i>${tenAccount}</span></a>
+
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item" href="/thong-tin-tai-khoan">Thông tin tài khoản</a>
+                                            <br>
+                                            <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </c:if>
+                            <li><a href="/gio-hang"><i class="fa fa-shopping-cart"></i> <fmt:formatNumber value="${tongTien}" type="number" pattern="###,### VNĐ" /></a></li>
+                            <c:if test="${checkLogin==false}">
+                                <li><a href="/login"><i class="fa fa-lock"></i> Login</a></li>
+                            </c:if>
                         </ul>
                     </div>
                 </div>
@@ -98,4 +122,5 @@
             </div>
         </div>
     </div><!--/header-bottom-->
-</header><!--/header-->
+</header>
+<!--/header-->

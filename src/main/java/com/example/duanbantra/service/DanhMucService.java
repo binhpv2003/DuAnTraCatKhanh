@@ -12,4 +12,6 @@ public interface DanhMucService {
     void update(Integer id);
 
     void remove(Integer id);
+
+    DanhMuc detail(Integer id);
 }

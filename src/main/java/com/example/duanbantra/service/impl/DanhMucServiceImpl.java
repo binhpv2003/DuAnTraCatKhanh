@@ -32,4 +32,9 @@ public class DanhMucServiceImpl implements DanhMucService {
     public void remove(Integer id) {
         repository.delete(repository.findById(id).get());
     }
+
+    @Override
+    public DanhMuc detail(Integer id) {
+        return repository.findById(id).get();
+    }
 }
