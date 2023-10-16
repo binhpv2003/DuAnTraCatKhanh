@@ -251,8 +251,8 @@ public class ClientController {
         if (idGet.isPresent()) {
             kh = khachHangService.detail(idGet.orElse(0));
             gh = gioHangService.detail(idGet.orElse(0));
-            gioHangChiTietList = gioHangChiTietService.getAll(gh.getId());
 
+            gioHangChiTietList = gioHangChiTietService.getAll(gh.getId());
             for (GioHangChiTiet ghct : gioHangChiTietList) {
                 tongTien += (ghct.getSanPham().getGiaBan() * ghct.getSoLuong());
             }
@@ -283,13 +283,15 @@ public class ClientController {
         hoaDonService.add(hd1);
 
         HoaDonChiTiet hdct =  new HoaDonChiTiet();
+        gioHangChiTietList = gioHangChiTietService.getAll(gh.getId());
         for (GioHangChiTiet ghct : gioHangChiTietList) {
             hdct.setHoaDon(hd1);
             hdct.setSoLuong(ghct.getSoLuong());
             hdct.setSanPham(ghct.getSanPham());
             hdct.setDonGia(hdct.getSanPham().getGiaBan());
+            hoaDonChiTietService.add(hdct);
         }
-        hoaDonChiTietService.add(hdct);
+
         gioHangChiTietService.deleteAll();
         return "redirect:/trang-chu";
     }
