@@ -8,6 +8,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,27 +31,36 @@ public class SanPham {
     private int id;
 
     @Column(name = "ma")
+    @NotEmpty(message = "Không để trống trường này")
     private String maSp;
 
     @Column(name = "hinh_anh")
+    @NotBlank(message = "Không để trống trường này")
     private String hinhAnh;
 
     @Column(name = "tensp")
+    @NotBlank(message = "Không để trống trường này")
     private String tenSp;
 
+
     @Column(name = "hansd")
+    @NotNull(message = "Không để trống trường này")
     private int hanSD;
 
     @Column(name = "mo_ta")
+    @NotBlank(message = "Không để trống trường này")
     private String moTa;
 
+    @NotNull(message = "Không để trống trường này")
     @Column(name = "so_luong_ton")
     private int soLuong;
 
     @Column(name = "gia_nhap")
+    @NotNull(message = "Không để trống trường này")
     private Long giaNhap;
 
     @Column(name = "gia_ban")
+    @NotNull(message = "Không để trống trường này")
     private Long giaBan;
 
     @Column(name = "trang_thai")

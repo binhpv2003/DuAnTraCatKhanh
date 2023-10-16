@@ -22,6 +22,8 @@
     <link href="../assets/css/nucleo-svg.css" rel="stylesheet"/>
     <!-- CSS Files -->
     <link id="pagestyle" href="../../../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">
@@ -87,16 +89,21 @@
                                 <form:textarea path="moTa" class="form-control"/>
                                 <form:errors path="moTa" class="text-danger" rows="10"/>
 
-                                <form:label path="" style="font-size:15px">Danh Mục:</form:label>
-                                <form:select path="dm" class="form-control">
-                                    <form:options items="${listDanhMuc}" itemLabel="ten"/>
-                                </form:select>
+                                <div class="d-flex" style="height: 43px">
+                                    <form:select path="dm" class="form-control">
+                                        <form:options items="${listDanhMuc}" itemLabel="ten"/>
+                                    </form:select>
+                                    <a href="/admin/danh-muc" class="btn btn-primary" style="height: 43px;margin-left: 5px"><i class="fa-solid fa-plus"></i></a>
+                                </div>
 
 
                                 <form:label path="" style="font-size:15px">Nhà Sản Xuất:</form:label>
-                                <form:select path="nsx" class="form-control">
-                                    <form:options items="${listNsx}" itemLabel="ten"/>
-                                </form:select>
+                                <div class="d-flex" style="height: 43px">
+                                    <form:select path="nsx" class="form-control">
+                                        <form:options items="${listNsx}" itemLabel="ten"/>
+                                    </form:select>
+                                    <a href="/admin/nsx" class="btn btn-primary" style="height: 43px;margin-left: 5px"><i class="fa-solid fa-plus"></i></a>
+                                </div>
 
                                 <form:label path="" style="font-size:15px">Trạng Thái:</form:label> <br>
                                 <form:checkbox path="trangThai" />Ngừng Bán?

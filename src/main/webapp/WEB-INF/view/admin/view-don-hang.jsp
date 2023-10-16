@@ -40,8 +40,8 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0 d-flex justify-content-between">
-                        <h6>Quản Lý Sản Phẩm</h6>
-                        <a class="btn btn-primary" href="/admin/view-add">Thêm Mới</a>
+                        <h6>Quản Lý Đơn Hàng</h6>
+
                     </div>
 
                     <div class="card-body px-0 pt-0">
@@ -49,21 +49,15 @@
                         <div class="form-group row" style="padding: 0 20px">
 
 
-                            <div class="col-sm-2">
-                                <select class="form-control">
-                                    <option value="" selected="selected">Chọn danh mục&nbsp;&nbsp;</option>
-                                  <c:forEach items="${listDanhMuc}" var="dm">
-                                      <option value="${dm.ten}">${dm.ten}</option>
-                                  </c:forEach>
-
-                                </select>
-                            </div>
 
                             <div class="col-sm-2">
                                 <select class="form-control">
-                                    <option value="" selected="selected">Lọc theo trạng thái kho&nbsp;&nbsp;</option>
-                                    <option value="lap-xuong-nho">Còn Hàng&nbsp;&nbsp;</option>
-                                    <option value="lap-xuong-tuoi">Hết Hàng&nbsp;&nbsp;</option>
+                                    <option value="" selected="selected">Lọc theo trạng hóa Đơn&nbsp;&nbsp;</option>
+                                    <option value="lap-xuong-nho">Chờ Xác Nhận&nbsp;&nbsp;</option>
+                                    <option value="lap-xuong-tuoi">Đã Thanh Toán&nbsp;&nbsp;</option>
+                                    <option value="lap-xuong-tuoi">Đã Vận Chuyển&nbsp;&nbsp;</option>
+                                    <option value="lap-xuong-tuoi">Đã Giao Hàng&nbsp;&nbsp;</option>
+                                    <option value="lap-xuong-tuoi">Hủy Đơn&nbsp;&nbsp;</option>
 
                                 </select>
                             </div>
@@ -72,7 +66,7 @@
                             </div>
                             <div class="col-sm-4" style="">
                                 <form action="">
-                                    <input type="text" placeholder="Nhập tên sản phẩm" class="form-control">
+                                    <input type="text" placeholder="Nhập mã đơn hàng" class="form-control">
                                 </form>
                             </div>
                             <div class="col-sm-2">
@@ -128,7 +122,10 @@
                                                    Đã Vận Chuyển
                                                 </c:when>
                                                 <c:when test="${sp.tinhTrang == 4}">
-                                                   Đã Giao
+                                                   Đã Giao Hàng
+                                                </c:when>
+                                                <c:when test="${sp.tinhTrang == 5}">
+                                                   <span class="text-danger">Hủy</span>
                                                 </c:when>
                                                 <c:otherwise>
                                                     Trạng Thái Mặc Định
@@ -137,24 +134,42 @@
                                         </td>
                                         <td class="text-center">
 
-                                            <a href="/admin/confirm/${sp.id}" class="btn btn-warning">Xác Nhận</a>
-                                            <a href="/admin/remove/${sp.id}" class="btn btn-danger">Vận Chuyển</a>
-                                            <a href="/admin/remove/${sp.id}" class="btn btn-danger">Đã Giao Hàng</a>
+                                            <c:choose>
+                                                <c:when test="${sp.tinhTrang == 1}">
+                                                    <a href="/admin/confirm/${sp.id}" class="btn btn-success">Xác Nhận</a>
+<%--                                                    <a href="/admin/cancel/${sp.id}" class="btn btn-danger">Hủy Đơn</a>--%>
+                                                </c:when>
+                                                <c:when test="${sp.tinhTrang == 2}">
+                                                    <a href="/admin/ship/${sp.id}" class="btn btn-primary">Vận Chuyển</a>
+<%--                                                    <a href="/admin/cancel/${sp.id}" class="btn btn-danger">Hủy Đơn</a>--%>
+                                                </c:when>
+                                                <c:when test="${sp.tinhTrang == 3}">
+                                                    <a href="/admin/done/${sp.id}" class="btn btn-danger">Đã Giao Hàng</a>
+<%--                                                    <a href="/admin/cancel/${sp.id}" class="btn btn-danger">Hủy Đơn</a>--%>
+                                                </c:when>
+
+                                            </c:choose>
+                                            <a href="/admin/view-hoa-don-ct/${sp.id}" class="btn btn-success">Hóa Đơn CT</a>
+
                                         </td>
                                     </tr>
                                 </c:forEach>
 
                                 </tbody>
                             </table>
-                            <nav aria-label="Page navigation example" class="d-flex justify-content-center">
-                                <ul class="pagination">
-                                    <li class="page-item"><a class="page-link" href="/admin/phan-trang?page=0">Fist</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                    <li class="page-item"><a class="page-link" href="/admin/phan-trang?page=5">Last</a></li>
-
-                                </ul>
-                            </nav>
+                            <div class="col-12">
+                                <div class="row mt-3">
+                                    <div class="d-flex justify-content-center">
+                                        <div class="row">
+                                            <a class="btn btn-outline-primary col" href="/admin/don-hang?page=${currentPage <= 1 ? 1 : currentPage - 1}">Previous</a>
+                                            <c:forEach begin="1" end="${totalPages}" var="pageIndex">
+                                                <a class="btn btn-outline-primary col" href="/admin/don-hang?page=${pageIndex}">${pageIndex}</a>
+                                            </c:forEach>
+                                            <a class="btn btn-outline-primary col" href="/admin/don-hang?page=${currentPage >= totalPages ? totalPages : currentPage + 1}">Next</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>

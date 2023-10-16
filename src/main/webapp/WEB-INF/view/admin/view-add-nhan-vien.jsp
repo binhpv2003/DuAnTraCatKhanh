@@ -52,27 +52,27 @@
                             <div class="col-md-6">
                                 <form:label path="" style="font-size:15px">ID Nhân Viên:</form:label>
                                 <form:input path="id" class="form-control" readonly="true"/>
-                                <form:errors path="id" class="text-danger"/>
+                                <form:errors path="id" class="text-danger"/> <br>
 
                                 <form:label path="" style="font-size:15px">Mã Nhân Viên:</form:label>
                                 <form:input path="ma" class="form-control"/>
-                                <form:errors path="ma" class="text-danger"/>
+                                <form:errors path="ma" class="text-danger"/><br>
 
                                 <form:label path="" style="font-size:15px">Họ:</form:label>
                                 <form:input path="ho" class="form-control"/>
-                                <form:errors path="ho" class="text-danger"/>
+                                <form:errors path="ho" class="text-danger"/><br>
 
                                 <form:label path="" style="font-size:15px">Tên Đệm:</form:label>
                                 <form:input path="tenDem" class="form-control"/>
-                                <form:errors path="tenDem" class="text-danger"/>
+                                <form:errors path="tenDem" class="text-danger"/><br>
 
                                 <form:label path="" style="font-size:15px">Tên:</form:label>
                                 <form:input path="ten" class="form-control"/>
-                                <form:errors path="ten" class="text-danger"/>
+                                <form:errors path="ten" class="text-danger"/><br>
 
                                 <form:label path="" style="font-size:15px">Giới Tính</form:label>
                                 <form:radiobutton path="gioiTinh" value="true" checked="true"/>Nam
-                                <form:radiobutton path="gioiTinh" value="false"/>Nữ <br>
+                                <form:radiobutton path="gioiTinh" value="false"/>Nữ <br><br>
 
 
 
@@ -80,19 +80,19 @@
                             <div class="col-md-6">
                                 <form:label path="" style="font-size:15px">Ngày Sinh:</form:label>
                                 <form:input path="ngaySinh" class="form-control" type="date"/>
-                                <form:errors path="ngaySinh" class="text-danger"/>
+                                <form:errors path="ngaySinh" class="text-danger"/><br>
 
                                 <form:label path="" style="font-size:15px">Địa Chỉ:</form:label>
                                 <form:input path="diaChi" class="form-control"/>
-                                <form:errors path="diaChi" class="text-danger"/>
+                                <form:errors path="diaChi" class="text-danger"/><br>
 
                                 <form:label path="" style="font-size:15px">Số Điện Thoại:</form:label>
                                 <form:input path="sdt" class="form-control"/>
-                                <form:errors path="sdt" class="text-danger" rows="10"/>
+                                <form:errors path="sdt" class="text-danger" rows="10"/><br>
 
                                 <form:label path="" style="font-size:15px">Mật Khẩu:</form:label>
                                 <form:input path="matKhau" class="form-control" type="password"/>
-                                <form:errors path="matKhau" class="text-danger" rows="10"/>
+                                <form:errors path="matKhau" class="text-danger" rows="10"/><br>
 
                                 <form:label path="" style="font-size:15px">Chức Vụ:</form:label>
                                 <div class="d-flex" style="height: 43px">

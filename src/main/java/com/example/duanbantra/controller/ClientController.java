@@ -3,10 +3,12 @@ package com.example.duanbantra.controller;
 import com.example.duanbantra.entity.GioHang;
 import com.example.duanbantra.entity.GioHangChiTiet;
 import com.example.duanbantra.entity.HoaDon;
+import com.example.duanbantra.entity.HoaDonChiTiet;
 import com.example.duanbantra.entity.KhachHang;
 import com.example.duanbantra.entity.SanPham;
 import com.example.duanbantra.service.GioHangChiTietService;
 import com.example.duanbantra.service.GioHangService;
+import com.example.duanbantra.service.HoaDonChiTietService;
 import com.example.duanbantra.service.HoaDonService;
 import com.example.duanbantra.service.KhachHangService;
 import com.example.duanbantra.service.SanPhamService;
@@ -177,11 +179,13 @@ public class ClientController {
         }
 
         GioHangChiTiet ghUpdate = gioHangChiTietService.detail(id);
+        SanPham sp = ghUpdate.getSanPham();
+        sp.setSoLuong(sp.getSoLuong() - soLuong +ghUpdate.getSoLuong());
+        sanPhamService.addSanPham(sp);  //update số lượng khi xóa
+
         ghUpdate.setSoLuong(soLuong);
         ghUpdate.setDonGia(ghUpdate.getSanPham().getGiaBan() * soLuong);
-        SanPham sp = ghUpdate.getSanPham();
-        sp.setSoLuong(sp.getSoLuong() - soLuong);
-        sanPhamService.addSanPham(sp);
+
         gioHangChiTietService.add(ghUpdate);
 
         return "redirect:/gio-hang";
@@ -190,6 +194,11 @@ public class ClientController {
 
     @GetMapping("/remove/{id}")
     public String removeGioHang(@PathVariable("id") Integer id, Model model) {
+
+        GioHangChiTiet ghUpdate = gioHangChiTietService.detail(id);
+        SanPham sp = ghUpdate.getSanPham();
+        sp.setSoLuong(sp.getSoLuong()  +ghUpdate.getSoLuong());
+        sanPhamService.addSanPham(sp);  //update số lượng khi xóa
         gioHangChiTietService.remove(id);
 
         return "redirect:/gio-hang";
@@ -229,14 +238,19 @@ public class ClientController {
 
     private List<HoaDon> hoaDonList = new ArrayList<>();
 
+    @Autowired
+    private HoaDonChiTietService hoaDonChiTietService;
+
+    private List<HoaDonChiTiet> hoaDonChiTietList = new ArrayList<>();
     @PostMapping("/thanh-toan/add")
     public String thanhToan(@ModelAttribute("hd1") HoaDon hd1, BindingResult result, Model model, HttpSession session) {
         Optional<Integer> idGet = Optional.ofNullable((Integer) session.getAttribute("id"));
         KhachHang kh;
+        GioHang gh;
         long tongTien = 0;
         if (idGet.isPresent()) {
             kh = khachHangService.detail(idGet.orElse(0));
-            GioHang gh = gioHangService.detail(idGet.orElse(0));
+            gh = gioHangService.detail(idGet.orElse(0));
             gioHangChiTietList = gioHangChiTietService.getAll(gh.getId());
 
             for (GioHangChiTiet ghct : gioHangChiTietList) {
@@ -267,6 +281,15 @@ public class ClientController {
         hd1.setTinhTrang(1);
         hd1.setTongTien(tongTien);
         hoaDonService.add(hd1);
+
+        HoaDonChiTiet hdct =  new HoaDonChiTiet();
+        for (GioHangChiTiet ghct : gioHangChiTietList) {
+            hdct.setHoaDon(hd1);
+            hdct.setSoLuong(ghct.getSoLuong());
+            hdct.setSanPham(ghct.getSanPham());
+            hdct.setDonGia(hdct.getSanPham().getGiaBan());
+        }
+        hoaDonChiTietService.add(hdct);
         gioHangChiTietService.deleteAll();
         return "redirect:/trang-chu";
     }

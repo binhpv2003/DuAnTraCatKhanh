@@ -161,15 +161,20 @@
 
                                 </tbody>
                             </table>
-                            <nav aria-label="Page navigation example" class="d-flex justify-content-center">
-                                <ul class="pagination">
-                                    <li class="page-item"><a class="page-link" href="/admin/phan-trang?page=0">Fist</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                    <li class="page-item"><a class="page-link" href="/admin/phan-trang?page=5">Last</a></li>
 
-                                </ul>
-                            </nav>
+                            <div class="col-12">
+                                <div class="row mt-3">
+                                    <div class="d-flex justify-content-center">
+                                        <div class="row">
+                                            <a class="btn btn-outline-primary col" href="/admin/quan-ly-san-pham?page=${currentPage <= 1 ? 1 : currentPage - 1}">Previous</a>
+                                            <c:forEach begin="1" end="${totalPages}" var="pageIndex">
+                                                <a class="btn btn-outline-primary col" href="/admin/quan-ly-san-pham?page=${pageIndex}">${pageIndex}</a>
+                                            </c:forEach>
+                                            <a class="btn btn-outline-primary col" href="/admin/quan-ly-san-pham?page=${currentPage >= totalPages ? totalPages : currentPage + 1}">Next</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>

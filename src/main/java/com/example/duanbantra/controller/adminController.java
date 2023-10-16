@@ -4,6 +4,7 @@ import com.example.duanbantra.entity.ChucVu;
 import com.example.duanbantra.entity.DanhMuc;
 import com.example.duanbantra.entity.GioHang;
 import com.example.duanbantra.entity.HoaDon;
+import com.example.duanbantra.entity.HoaDonChiTiet;
 import com.example.duanbantra.entity.KhachHang;
 import com.example.duanbantra.entity.NSX;
 import com.example.duanbantra.entity.NhanVien;
@@ -11,6 +12,7 @@ import com.example.duanbantra.entity.SanPham;
 import com.example.duanbantra.service.ChucVuService;
 import com.example.duanbantra.service.DanhMucService;
 import com.example.duanbantra.service.GioHangService;
+import com.example.duanbantra.service.HoaDonChiTietService;
 import com.example.duanbantra.service.HoaDonService;
 import com.example.duanbantra.service.KhachHangService;
 import com.example.duanbantra.service.NSXService;
@@ -19,6 +21,7 @@ import com.example.duanbantra.service.SanPhamService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -56,7 +59,7 @@ public class adminController {
 
     //admin
     @GetMapping("")
-    public String viewAdmin(Model model,HttpSession session) {
+    public String viewAdmin(Model model, HttpSession session) {
         Integer id = (Integer) session.getAttribute("id"); // Lấy thông tin đăng nhập từ phiên
         if (id != null) {
             NhanVien nv = nhanVienService.detail(id);
@@ -68,35 +71,40 @@ public class adminController {
     }
 
     @GetMapping("/quan-ly-san-pham")
-    public String viewQuanLySanPham(Model model,HttpSession session) {
+    public String viewQuanLySanPham(@RequestParam(value = "page", defaultValue = "1") int currentPage,Model model, HttpSession session) {
         Integer id = (Integer) session.getAttribute("id"); // Lấy thông tin đăng nhập từ phiên
         if (id != null) {
             NhanVien nv = nhanVienService.detail(id);
             model.addAttribute("checkLogin", 1);
             model.addAttribute("Id", nv.getTen());
 
-        }else {
+        } else {
             return "/admin/login";
         }
 
 
-        listSanPham = serviceSanPham.getAll();
+
+
+
+        Page<SanPham> page = serviceSanPham.findAllSanPham(currentPage-1,5);
+        model.addAttribute("listSanPham", page.getContent());
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", page.getTotalPages());
         danhMucList = danhMucService.getAll();
         model.addAttribute("listDanhMuc", danhMucList);
-        model.addAttribute("listSanPham", listSanPham);
 
         return "/admin/view-san-pham";
     }
 
     @GetMapping("/view-add")
-    public String viewAdd(Model model,HttpSession session) {
+    public String viewAdd(Model model, HttpSession session) {
         Integer id = (Integer) session.getAttribute("id"); // Lấy thông tin đăng nhập từ phiên
         if (id != null) {
             NhanVien nv = nhanVienService.detail(id);
             model.addAttribute("checkLogin", 1);
             model.addAttribute("Id", nv.getTen());
 
-        }else {
+        } else {
             return "/admin/login";
         }
 
@@ -109,13 +117,13 @@ public class adminController {
     }
 
     @PostMapping("/add")
-    public String addSanPham(@ModelAttribute("sp1") SanPham sp1, BindingResult result, Model model) {
+    public String addSanPham(@Valid @ModelAttribute("sp1") SanPham sp1, BindingResult result, Model model) {
         if (result.hasErrors()) {
             danhMucList = danhMucService.getAll();
             nsxList = nsxService.getAll();
             model.addAttribute("listDanhMuc", danhMucList);
             model.addAttribute("listNsx", nsxList);
-            return "view-add";
+            return "/admin/view-add";
         }
         serviceSanPham.addSanPham(sp1);
         return "redirect:/admin/quan-ly-san-pham";
@@ -128,14 +136,14 @@ public class adminController {
     }
 
     @GetMapping("/view-update/{id}")
-    public String viewAdd(@PathVariable("id") Integer id, Model model,HttpSession session) {
+    public String viewAdd(@PathVariable("id") Integer id, Model model, HttpSession session) {
         Integer idGet = (Integer) session.getAttribute("id"); // Lấy thông tin đăng nhập từ phiên
         if (idGet != null) {
             NhanVien nv = nhanVienService.detail(idGet);
             model.addAttribute("checkLogin", 1);
             model.addAttribute("Id", nv.getTen());
 
-        }else {
+        } else {
             return "/admin/login";
         }
 
@@ -148,7 +156,7 @@ public class adminController {
     }
 
     @PostMapping("/update")
-    public String updateSanPham(@ModelAttribute("sp1") SanPham sp1, BindingResult result, Model model) {
+    public String updateSanPham(@Valid @ModelAttribute("sp1") SanPham sp1, BindingResult result, Model model) {
         if (result.hasErrors()) {
             danhMucList = danhMucService.getAll();
             nsxList = nsxService.getAll();
@@ -163,14 +171,14 @@ public class adminController {
     //Danh Mục
 
     @GetMapping("/danh-muc")
-    public String viewDanhMuc(Model model,HttpSession session) {
+    public String viewDanhMuc(Model model, HttpSession session) {
         Integer idGet = (Integer) session.getAttribute("id"); // Lấy thông tin đăng nhập từ phiên
         if (idGet != null) {
             NhanVien nv = nhanVienService.detail(idGet);
             model.addAttribute("checkLogin", 1);
             model.addAttribute("Id", nv.getTen());
 
-        }else {
+        } else {
             return "/admin/login";
         }
 
@@ -208,14 +216,14 @@ public class adminController {
     //NSX
 
     @GetMapping("/nsx")
-    public String viewNsx(Model model,HttpSession session) {
+    public String viewNsx(Model model, HttpSession session) {
         Integer idGet = (Integer) session.getAttribute("id"); // Lấy thông tin đăng nhập từ phiên
         if (idGet != null) {
             NhanVien nv = nhanVienService.detail(idGet);
             model.addAttribute("checkLogin", 1);
             model.addAttribute("Id", nv.getTen());
 
-        }else {
+        } else {
             return "/admin/login";
         }
 
@@ -261,31 +269,33 @@ public class adminController {
     private List<ChucVu> chucVuList = new ArrayList<>();
 
     @GetMapping("/nhan-vien")
-    public String hienThiNhanVien(Model model,HttpSession session) {
+    public String hienThiNhanVien(@RequestParam(value = "page", defaultValue = "1") int currentPage,Model model, HttpSession session) {
         Integer idGet = (Integer) session.getAttribute("id"); // Lấy thông tin đăng nhập từ phiên
         if (idGet != null) {
             NhanVien nv = nhanVienService.detail(idGet);
             model.addAttribute("checkLogin", 1);
             model.addAttribute("Id", nv.getTen());
 
-        }else {
+        } else {
             return "/admin/login";
         }
-        nhanVienList = nhanVienService.getAll();
-        model.addAttribute("listNhanVien", nhanVienList);
+        Page<NhanVien> page = nhanVienService.findAllNhanVien(currentPage-1,5);
+        model.addAttribute("listNhanVien", page.getContent());
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", page.getTotalPages());
         return "/admin/view-nhan-vien";
     }
 
 
     @GetMapping("/nhan-vien/view-add")
-    public String viewAddNhanVien(Model model,HttpSession session) {
+    public String viewAddNhanVien(Model model, HttpSession session) {
         Integer idGet = (Integer) session.getAttribute("id"); // Lấy thông tin đăng nhập từ phiên
         if (idGet != null) {
             NhanVien nv = nhanVienService.detail(idGet);
             model.addAttribute("checkLogin", 1);
             model.addAttribute("Id", nv.getTen());
 
-        }else {
+        } else {
             return "/admin/login";
         }
         chucVuList = chucVuService.getAll();
@@ -296,7 +306,7 @@ public class adminController {
     }
 
     @PostMapping("/nhan-vien/add")
-    public String addNhanVien(@ModelAttribute("nv1") NhanVien nv1, BindingResult result, Model model) {
+    public String addNhanVien(@Valid @ModelAttribute("nv1") NhanVien nv1, BindingResult result, Model model) {
         if (result.hasErrors()) {
             chucVuList = chucVuService.getAll();
             model.addAttribute("listChucVu", chucVuList);
@@ -308,14 +318,14 @@ public class adminController {
     }
 
     @GetMapping("/nhan-vien/view-update/{id}")
-    public String viewUpdateNhanVien(@PathVariable("id") Integer id, Model model,HttpSession session) {
+    public String viewUpdateNhanVien(@PathVariable("id") Integer id, Model model, HttpSession session) {
         Integer idGet = (Integer) session.getAttribute("id"); // Lấy thông tin đăng nhập từ phiên
         if (idGet != null) {
             NhanVien nv = nhanVienService.detail(idGet);
             model.addAttribute("checkLogin", 1);
             model.addAttribute("Id", nv.getTen());
 
-        }else {
+        } else {
             return "/admin/login";
         }
         model.addAttribute("nv1", nhanVienService.detail(id));
@@ -339,26 +349,25 @@ public class adminController {
 
     //Phân Trang
     @GetMapping("/phan-trang")
-    public String phanTrang(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
-        listSanPham = serviceSanPham.findAllSanPham(page, 2).getContent();
-        danhMucList = danhMucService.getAll();
-        model.addAttribute("listDanhMuc", danhMucList);
-        model.addAttribute("listSanPham", listSanPham);
-        model.addAttribute("sp1", new SanPham());
+    public String phanTrang(@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model) {
+        Page<SanPham> page = serviceSanPham.findAllSanPham(currentPage-1,5);
+        model.addAttribute("lists", page.getContent());
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", page.getTotalPages());
         return "/admin/view-san-pham";
     }
 
     //Chức Vụ
 
     @GetMapping("/chuc-vu")
-    public String viewChucVu(Model model,HttpSession session) {
+    public String viewChucVu(Model model, HttpSession session) {
         Integer idGet = (Integer) session.getAttribute("id"); // Lấy thông tin đăng nhập từ phiên
         if (idGet != null) {
             NhanVien nv = nhanVienService.detail(idGet);
             model.addAttribute("checkLogin", 1);
             model.addAttribute("Id", nv.getTen());
 
-        }else {
+        } else {
             return "/admin/login";
         }
         model.addAttribute("cv1", new ChucVu());
@@ -384,39 +393,41 @@ public class adminController {
     private KhachHangService khachHangService;
 
 
-
     private List<KhachHang> khachHangList = new ArrayList<>();
 
 
-
     @GetMapping("/khach-hang")
-    public String hienThiKhachHang(Model model,HttpSession session) {
+    public String hienThiKhachHang(@RequestParam(value = "page", defaultValue = "1") int currentPage,Model model, HttpSession session) {
         Integer idGet = (Integer) session.getAttribute("id"); // Lấy thông tin đăng nhập từ phiên
         if (idGet != null) {
             NhanVien nv = nhanVienService.detail(idGet);
             model.addAttribute("checkLogin", 1);
             model.addAttribute("Id", nv.getTen());
 
-        }else {
+        } else {
             return "/admin/login";
         }
 
-        khachHangList = khachHangService.getAll();
-        model.addAttribute("listKhachHang", khachHangList);
+
+        Page<KhachHang> page = khachHangService.findAllKhachHang(currentPage-1,5);
+        model.addAttribute("listKhachHang", page.getContent());
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", page.getTotalPages());
         return "/admin/view-khach-hang";
     }
 
     @Autowired
     private GioHangService gioHangService;
+
     @GetMapping("/khach-hang/view-add")
-    public String viewAddKhachHang(Model model,HttpSession session) {
+    public String viewAddKhachHang(Model model, HttpSession session) {
         Integer idGet = (Integer) session.getAttribute("id"); // Lấy thông tin đăng nhập từ phiên
         if (idGet != null) {
             NhanVien nv = nhanVienService.detail(idGet);
             model.addAttribute("checkLogin", 1);
             model.addAttribute("Id", nv.getTen());
 
-        }else {
+        } else {
             return "/admin/login";
         }
         model.addAttribute("kh1", new KhachHang());
@@ -443,7 +454,7 @@ public class adminController {
     }
 
     @GetMapping("/khach-hang/view-update/{id}")
-    public String viewUpdateKhachHang(@PathVariable("id") Integer id, Model model,HttpSession session) {
+    public String viewUpdateKhachHang(@PathVariable("id") Integer id, Model model, HttpSession session) {
         Optional<Integer> idGet = Optional.ofNullable((Integer) session.getAttribute("id"));
         if (idGet.isPresent()) {
 
@@ -452,7 +463,7 @@ public class adminController {
             model.addAttribute("Id", nv.getTen());
 
 
-        }else {
+        } else {
             return "redirect:/admin/login";
         }
 
@@ -495,6 +506,7 @@ public class adminController {
         return "/admin/login"; // Trang đăng nhập lại nếu đăng nhập không thành công
 
     }
+
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate(); // Xóa toàn bộ phiên (session)
@@ -507,10 +519,10 @@ public class adminController {
     @Autowired
     private HoaDonService hoaDonService;
 
-    private List<HoaDon>hoaDonList = new ArrayList<>();
+    private List<HoaDon> hoaDonList = new ArrayList<>();
 
     @GetMapping("/don-hang")
-    public String viewDonHang(Model model,HttpSession session){
+    public String viewDonHang(@RequestParam(value = "page", defaultValue = "1") int currentPage,Model model, HttpSession session) {
         Optional<Integer> idGet = Optional.ofNullable((Integer) session.getAttribute("id"));
         if (idGet.isPresent()) {
 
@@ -519,27 +531,30 @@ public class adminController {
             model.addAttribute("Id", nv.getTen());
 
 
-        }else {
+        } else {
             return "redirect:/admin/login";
         }
-        hoaDonList = hoaDonService.getAll();
-        model.addAttribute("listHoaDon",hoaDonList);
+
+        Page<HoaDon> page = hoaDonService.findAllHoaDon(currentPage-1,5);
+        model.addAttribute("listHoaDon", page.getContent());
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", page.getTotalPages());
 
         return "/admin/view-don-hang";
     }
 
     @GetMapping("/confirm/{id}")
-    public String confirmDonHang(@PathVariable("id")Integer id,Model model,HttpSession session){
+    public String confirmDonHang(@PathVariable("id") Integer id, Model model, HttpSession session) {
         Optional<Integer> idGet = Optional.ofNullable((Integer) session.getAttribute("id"));
         NhanVien nv;
         if (idGet.isPresent()) {
 
-           nv = nhanVienService.detail(idGet.orElse(0));
+            nv = nhanVienService.detail(idGet.orElse(0));
             model.addAttribute("checkLogin", 1);
             model.addAttribute("Id", nv.getTen());
 
 
-        }else {
+        } else {
             return "redirect:/admin/login";
         }
         HoaDon hd = hoaDonService.detail(id);
@@ -554,6 +569,91 @@ public class adminController {
         hd.setTinhTrang(2);
         hoaDonService.add(hd);
         return "redirect:/admin/don-hang";
+
+    }
+
+    @GetMapping("/ship/{id}")
+    public String shipDonHang(@PathVariable("id") Integer id, Model model, HttpSession session) {
+        Optional<Integer> idGet = Optional.ofNullable((Integer) session.getAttribute("id"));
+        NhanVien nv;
+        if (idGet.isPresent()) {
+
+            nv = nhanVienService.detail(idGet.orElse(0));
+            model.addAttribute("checkLogin", 1);
+            model.addAttribute("Id", nv.getTen());
+
+
+        } else {
+            return "redirect:/admin/login";
+        }
+        HoaDon hd = hoaDonService.detail(id);
+        hd.setNhanVien(nv);
+
+        // Chuyển đổi LocalDate thành kiểu Date
+        LocalDate localDate = LocalDate.now();
+
+        // Chuyển đổi LocalDate thành kiểu Date
+        Date sqlDate = Date.valueOf(localDate);
+        hd.setNgayShip(sqlDate);
+        hd.setTinhTrang(3);
+        hoaDonService.add(hd);
+        return "redirect:/admin/don-hang";
+
+    }
+
+    @GetMapping("/done/{id}")
+    public String doneDonHang(@PathVariable("id") Integer id, Model model, HttpSession session) {
+        Optional<Integer> idGet = Optional.ofNullable((Integer) session.getAttribute("id"));
+        NhanVien nv;
+        if (idGet.isPresent()) {
+
+            nv = nhanVienService.detail(idGet.orElse(0));
+            model.addAttribute("checkLogin", 1);
+            model.addAttribute("Id", nv.getTen());
+
+
+        } else {
+            return "redirect:/admin/login";
+        }
+        HoaDon hd = hoaDonService.detail(id);
+        hd.setNhanVien(nv);
+
+        // Chuyển đổi LocalDate thành kiểu Date
+        LocalDate localDate = LocalDate.now();
+
+        // Chuyển đổi LocalDate thành kiểu Date
+        Date sqlDate = Date.valueOf(localDate);
+        hd.setNgayNhan(sqlDate);
+        hd.setTinhTrang(4);
+        hoaDonService.add(hd);
+        return "redirect:/admin/don-hang";
+
+    }
+
+    @Autowired
+    private HoaDonChiTietService hoaDonChiTietService;
+
+    private List<HoaDonChiTiet> hoaDonChiTietList = new ArrayList<>();
+
+    @GetMapping("/view-hoa-don-ct/{id}")
+    public String viewDonHang(@PathVariable("id") Integer id, Model model, HttpSession session) {
+        Optional<Integer> idGet = Optional.ofNullable((Integer) session.getAttribute("id"));
+        NhanVien nv;
+        if (idGet.isPresent()) {
+            nv = nhanVienService.detail(idGet.orElse(0));
+            model.addAttribute("checkLogin", 1);
+            model.addAttribute("Id", nv.getTen());
+
+
+        } else {
+            return "redirect:/admin/login";
+        }
+
+        HoaDon hd = hoaDonService.detail(id);
+        hoaDonChiTietList = hoaDonChiTietService.getAll(hd.getId());
+
+        model.addAttribute("listHoaDonChiTiet", hoaDonChiTietList);
+        return "/admin/view-hoa-don-ct";
 
     }
 

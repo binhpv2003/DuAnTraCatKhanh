@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,15 +30,19 @@ public class NhanVien {
     private Integer id;
 
     @Column(name = "ma")
+    @NotEmpty(message = "không để trống trường này")
     private String ma;
 
     @Column(name = "ten")
+    @NotEmpty(message = "không để trống trường này")
     private String ten;
 
     @Column(name = "ten_dem")
+    @NotEmpty(message = "không để trống trường này")
     private String tenDem;
 
     @Column(name = "ho")
+    @NotEmpty(message = "không để trống trường này")
     private String ho;
 
     @Column(name = "gioi_tinh")
@@ -47,12 +52,15 @@ public class NhanVien {
     private Date ngaySinh;
 
     @Column(name = "dia_chi")
+    @NotEmpty(message = "không để trống trường này")
     private String diaChi;
 
     @Column(name = "sdt")
+    @NotEmpty(message = "không để trống trường này")
     private String sdt;
 
     @Column(name = "mat_khau")
+    @NotEmpty(message = "không để trống trường này")
     private String matKhau;
 
 

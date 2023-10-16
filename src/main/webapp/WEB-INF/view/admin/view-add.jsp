@@ -50,39 +50,39 @@
                            <div class="col-md-6">
                             <form:label path="" style="font-size:15px">Hình Ảnh:</form:label>
                                <form:input path="hinhAnh" class="form-control"/>
-                               <form:errors path="hinhAnh" class="text-danger"/>
+                               <form:errors path="hinhAnh" class="text-danger"/> <br>
 
 
                                <form:label path="" style="font-size:15px">Mã SP:</form:label>
                                <form:input path="maSp" class="form-control" />
-                               <form:errors path="maSp" class="text-danger"/>
+                               <form:errors path="maSp" class="text-danger"/> <br>
 
                                <form:label path="" style="font-size:15px">Tên SP:</form:label>
                                <form:input path="tenSp" class="form-control" />
-                               <form:errors path="tenSp" class="text-danger"/>
+                               <form:errors path="tenSp" class="text-danger"/><br>
 
                                <form:label path="" style="font-size:15px">Hạn SD:</form:label>
                                <form:input path="hanSD" class="form-control" type="number"/>
-                               <form:errors path="hanSD" class="text-danger"/>
+                               <form:errors path="hanSD" class="text-danger"/><br>
 
                                <form:label path="" style="font-size:15px">Giá Nhập:</form:label>
                                <form:input path="giaNhap" class="form-control" type="number"/>
-                               <form:errors path="giaNhap" class="text-danger"/>
+                               <form:errors path="giaNhap" class="text-danger"/><br>
 
                                <form:label path="" style="font-size:15px">Giá Bán:</form:label>
                                <form:input path="giaBan" class="form-control" type="number"/>
-                               <form:errors path="giaBan" class="text-danger"/>
+                               <form:errors path="giaBan" class="text-danger"/><br>
                            </div>
                            <div class="col-md-6">
 
 
                                <form:label path="" style="font-size:15px">Số Lượng:</form:label>
                                <form:input path="soLuong" class="form-control" type="number"/>
-                               <form:errors path="soLuong" class="text-danger"/>
+                               <form:errors path="soLuong" class="text-danger"/><br>
 
                                <form:label path="" style="font-size:15px">Mô Tả:</form:label>
                                <form:textarea path="moTa" class="form-control"/>
-                               <form:errors path="moTa" class="text-danger" rows="10"/>
+                               <form:errors path="moTa" class="text-danger" rows="10"/><br>
 
                                <form:label path="" style="font-size:15px">Danh Mục:</form:label>
                                <div class="d-flex" style="height: 43px">

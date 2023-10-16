@@ -23,7 +23,7 @@
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <link href="../assets/css/nucleo-svg.css" rel="stylesheet"/>
     <!-- CSS Files -->
-    <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet"/>
+    <link id="pagestyle" href="../../../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet"/>
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">
@@ -40,8 +40,8 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0 d-flex justify-content-between">
-                        <h6>Quản Lý Nhân Viên</h6>
-                        <a class="btn btn-primary" href="/admin/nhan-vien/view-add">Thêm Mới</a>
+                        <h6>Quản Lý Hóa Đơn CT</h6>
+                        <a class="btn btn-primary" href="/admin/view-add">Quay Lại</a>
                     </div>
 
                     <div class="card-body px-0 pt-0">
@@ -50,12 +50,11 @@
 
 
 
-
                             <div class="col-sm-2">
                                 <select class="form-control">
-                                    <option value="" selected="selected">Lọc theo trạng thái&nbsp;&nbsp;</option>
-                                    <option value="lap-xuong-nho">Hoạt Động</option>
-                                    <option value="lap-xuong-tuoi">Ngừng Hoạt Động</option>
+                                    <option value="" selected="selected">Lọc theo trạng thái kho&nbsp;&nbsp;</option>
+                                    <option value="lap-xuong-nho">Còn Hàng&nbsp;&nbsp;</option>
+                                    <option value="lap-xuong-tuoi">Hết Hàng&nbsp;&nbsp;</option>
 
                                 </select>
                             </div>
@@ -64,7 +63,7 @@
                             </div>
                             <div class="col-sm-4" style="">
                                 <form action="">
-                                    <input type="text" placeholder="Nhập nhân viên" class="form-control">
+                                    <input type="text" placeholder="Nhập tên sản phẩm" class="form-control">
                                 </form>
                             </div>
                             <div class="col-sm-2">
@@ -77,39 +76,24 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center opacity-7 text-uppercase">#</th>
-                                    <th class="text-center opacity-7 text-uppercase">Mã Nhân Viên</th>
-                                    <th class="text-center opacity-7 text-uppercase">Họ và Tên</th>
-                                    <th class="text-center opacity-7 text-uppercase">Giới Tính</th>
-                                    <th class="text-center opacity-7 text-uppercase">Ngày Sinh</th>
-                                    <th class="text-center opacity-7 text-uppercase">Địa Chỉ</th>
-                                    <th class="text-center opacity-7 text-uppercase">SĐT</th>
-                                    <th class="text-center opacity-7 text-uppercase">Chức Vu</th>
-                                    <th class="text-center opacity-7 text-uppercase">Trạng Thái</th>
-                                    <th class="text-center opacity-7 text-uppercase">Hành Động</th>
+                                    <th class="text-center opacity-7 text-uppercase">Mã Hóa Đơn</th>
+                                    <th class="text-center opacity-7 text-uppercase">Tên Sản Phẩm</th>
+                                    <th class="text-center opacity-7 text-uppercase">Số Lượng</th>
+                                    <th class="text-center opacity-7 text-uppercase">Đơn Giá</th>
+                                    <th class="text-center opacity-7 text-uppercase">Thành Tiền</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
 
-                                <c:forEach items="${listNhanVien}" var="nv" varStatus="loop">
+                                <c:forEach items="${listHoaDonChiTiet}" var="sp" varStatus="loop">
                                     <tr>
                                         <td class="text-center">${loop.index}</td>
-                                        <td class="text-center">${nv.ma}</td>
-                                        <td class="text-center">${nv.ho} ${nv.tenDem} ${nv.ten}</td>
-                                        <td class="text-center">${nv.gioiTinh==true?"Nam":"Nữ"}</td>
-                                        <td class="text-center">${nv.ngaySinh}</td>
-                                        <td class="text-center">${nv.diaChi}</td>
-                                        <td class="text-center">${nv.sdt}</td>
-                                        <td class="text-center">${nv.cv.ten}</td>
-                                        <td class="text-center">${nv.trangThai==true?"Ngừng Hoạt Động":"Hoạt Động"}</td>
-                                        <td class="text-center">
-                                            <a href="/admin/nhan-vien/view-update/${nv.id}" class="btn btn-warning">Update</a>
-                                            <c:if test="${nv.trangThai==false}">
-                                                <a href="/admin/nhan-vien/remove/${nv.id}" class="btn btn-danger">Remove</a>
-                                            </c:if>
-                                            <c:if test="${nv.trangThai==true}">
-                                                <a href="/admin/nhan-vien/remove/${nv.id}" class="btn btn-primary">Khôi Phục</a>
-                                            </c:if>
-                                        </td>
+                                        <td class="text-center">${sp.hoaDon.ma}</td>
+                                        <td class="text-center">${sp.sanPham.tenSp}</td>
+                                        <td class="text-center">${sp.soLuong}</td>
+                                        <td class="text-center"><fmt:formatNumber value="${sp.donGia}" type="number" pattern="###,### VNĐ" /></td>
+                                        <td class="text-center"><fmt:formatNumber value="${sp.soLuong * sp.donGia}" type="number" pattern="###,### VNĐ" /></td>
                                     </tr>
                                 </c:forEach>
 
@@ -119,11 +103,11 @@
                                 <div class="row mt-3">
                                     <div class="d-flex justify-content-center">
                                         <div class="row">
-                                            <a class="btn btn-outline-primary col" href="/admin/nhan-vien?page=${currentPage <= 1 ? 1 : currentPage - 1}">Previous</a>
+                                            <a class="btn btn-outline-primary col" href="/admin/view-hoa-don-ct?page=${currentPage <= 1 ? 1 : currentPage - 1}">Previous</a>
                                             <c:forEach begin="1" end="${totalPages}" var="pageIndex">
-                                                <a class="btn btn-outline-primary col" href="/admin/nhan-vien?page=${pageIndex}">${pageIndex}</a>
+                                                <a class="btn btn-outline-primary col" href="/admin/view-hoa-don-ct?page=${pageIndex}">${pageIndex}</a>
                                             </c:forEach>
-                                            <a class="btn btn-outline-primary col" href="/admin/nhan-vien?page=${currentPage >= totalPages ? totalPages : currentPage + 1}">Next</a>
+                                            <a class="btn btn-outline-primary col" href="/admin/view-hoa-don-ct?page=${currentPage >= totalPages ? totalPages : currentPage + 1}">Next</a>
                                         </div>
                                     </div>
                                 </div>

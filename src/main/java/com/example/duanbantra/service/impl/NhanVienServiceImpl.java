@@ -1,9 +1,13 @@
 package com.example.duanbantra.service.impl;
 
 import com.example.duanbantra.entity.NhanVien;
+import com.example.duanbantra.entity.SanPham;
 import com.example.duanbantra.repositories.NhanVienRepository;
 import com.example.duanbantra.service.NhanVienService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,5 +31,10 @@ public class NhanVienServiceImpl implements NhanVienService {
     @Override
     public NhanVien detail(Integer id) {
       return  repository.findById(id).get();
+    }
+
+    @Override
+    public Page<NhanVien> findAllNhanVien(int page, int size) {
+        return repository.findAll(PageRequest.of(page,size, Sort.by("id").descending()));
     }
 }

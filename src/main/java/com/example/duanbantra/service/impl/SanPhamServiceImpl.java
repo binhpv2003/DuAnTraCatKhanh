@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,7 +44,7 @@ public class SanPhamServiceImpl implements SanPhamService {
 
     @Override
     public Page<SanPham> findAllSanPham(int p, int size){
-        Pageable pageable = PageRequest.of(p, size);
-        return repository.findAll(pageable);
+
+        return repository.findAll(PageRequest.of(p,size, Sort.by("id").descending()));
     }
 }
